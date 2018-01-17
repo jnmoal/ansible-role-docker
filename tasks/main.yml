@@ -1,0 +1,56 @@
+- name: Include os specific variables
+  include_vars: "{{ ansible_distribution }}.yml"
+
+- name: Uninstall any older versions
+  package:
+    name: "{{ item }}"
+    state: absent
+  with_items: "{{ docker_package_to_remove }}"
+  become: yes
+
+- name: Install pre requisites if any
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ docker_prerequisites }}"
+  become: yes
+
+- name: Add docker ce repository
+  shell: "{{ add_docker_repository_cmd }}"
+  become: yes
+
+- name: Install docker-ce
+  package:
+    name: docker-ce
+    state: present
+  become: yes
+
+- name: Start docker deamon
+  service:
+    name: docker
+    enabled: yes
+    state: started
+  become: yes
+
+- name: Create docker group
+  group:
+    name: docker
+    state: present
+  become: yes
+
+- name: Add current user to docker group
+  user:
+    name: jnmoal
+    groups: docker
+  become: yes
+
+- name: Check docker installation
+  shell: docker run --rm hello-world
+
+- name: Install docker-compose
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/1.14.0/docker-compose-{{ ansible_system }}-{{ ansible_userspace_architecture }}"
+    dest: "{{ docker_compose_dest }}"
+    owner: jnmoal
+    mode: "u=rwx,g=rwx,o=rwx"
+

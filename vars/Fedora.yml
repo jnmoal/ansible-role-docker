@@ -1,0 +1,18 @@
+docker_package_to_remove:
+  - docker
+  - docker-common
+  - container-selinux
+  - docker-selinux
+  - docker-engine
+
+docker_prerequisites:
+  - dnf-plugins-core
+
+docker_ce_repository_url: https://download.docker.com/linux/fedora/docker-ce.repo
+docker_ce_repository_dest: /etc/yum.repos.d/docker-ce.repo
+
+docker_machine_dest: /usr/bin/docker-machine
+docker_compose_dest: /usr/bin/docker-compose
+
+add_docker_repository_cmd: dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+

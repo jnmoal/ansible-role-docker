@@ -1,0 +1,14 @@
+galaxy_info:
+  author: jnmoal
+  description: Docker
+
+  license: MIT
+
+  min_ansible_version: 2.4
+
+  platforms:
+    - name: Fedora
+
+  galaxy_tags: ['docker']
+
+dependencies: []
