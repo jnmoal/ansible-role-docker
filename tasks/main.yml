@@ -34,23 +34,32 @@
 
 - name: Create docker group
   group:
-    name: docker
+    name: "{{ docker_group_name }}"
     state: present
   become: yes
+  when: use_docker_group
 
-- name: Add current user to docker group
+- name: Add users to docker group
   user:
-    name: jnmoal
-    groups: docker
+    name: "{{ item }}"
+    groups: "{{ docker_group_name }}" 
   become: yes
+  with_items: "{{ docker_group_users }}"
+  when: use_docker_group
 
 - name: Check docker installation
   shell: docker run --rm hello-world
 
 - name: Install docker-compose
   get_url:
-    url: "https://github.com/docker/compose/releases/download/1.14.0/docker-compose-{{ ansible_system }}-{{ ansible_userspace_architecture }}"
+    url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ ansible_system }}-{{ ansible_userspace_architecture }}"
     dest: "{{ docker_compose_dest }}"
-    owner: jnmoal
+    owner: "{{ ansible_user_id }}" 
     mode: "u=rwx,g=rwx,o=rwx"
 
+- name: Install docker-machine
+  get_url:
+    url: "https://github.com/docker/machine/releases/download/{{ docker_machine_version }}/docker-machine-{{ ansible_system }}-{{ ansible_userspace_architecture }}"
+    dest: "{{ docker_machine_dest }}"
+    owner: "{{ ansible_user_id }}"
+    mode: "u=rwx,g=rwx,o=rwx"

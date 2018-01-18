@@ -1,0 +1,7 @@
+docker_compose_version: 1.14.0
+docker_machine_version: v0.13.0
+
+docker_group_name: docker
+use_docker_group: no
+docker_group_users:
+  - "{{ ansible_user_id }}"
