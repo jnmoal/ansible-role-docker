@@ -47,15 +47,13 @@
   with_items: "{{ docker_group_users }}"
   when: use_docker_group
 
-- name: Check docker installation
-  shell: docker run --rm hello-world
-
 - name: Install docker-compose
   get_url:
     url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ ansible_system }}-{{ ansible_userspace_architecture }}"
     dest: "{{ docker_compose_dest }}"
     owner: "{{ ansible_user_id }}" 
     mode: "u=rwx,g=rwx,o=rwx"
+  become: yes
 
 - name: Install docker-machine
   get_url:
@@ -63,3 +61,4 @@
     dest: "{{ docker_machine_dest }}"
     owner: "{{ ansible_user_id }}"
     mode: "u=rwx,g=rwx,o=rwx"
+  become: yes

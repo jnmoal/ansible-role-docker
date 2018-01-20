@@ -1,12 +1,21 @@
-image: python:2.7
-
-before_script:
-  - pip install ansible
-
 stages:
   - test
 
-test:
+before_script:
+  - vagrant plugin install vagrant-vbguest
+
+check_synthaxe:
   stage: test
   script:
     - ansible-playbook tests/test.yml -i test/inventory --syntax-check
+
+test_fedora:
+  stage: test
+  script:
+    - echo "Testing on fedora machine"
+    - vagrant up fedora
+    - vagrant ssh fedora -c "ansible-playbook /vagrant/tests/test.yml -c local"
+    - vagrant ssh fedora -c "docker run hello-world"
+    - vagrant destroy -f fedora
+  after_script:
+    - vagrant destroy -f fedora
