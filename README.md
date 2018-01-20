@@ -1,33 +1,34 @@
-Role Name
+Role ansible-docker
 =========
 
-This role install Docker ans its tools on a machine.
-For now, only Fedora platform is implemented.
+This role install the latest Docker on a machine.
+Docker compose and Docker tool can also be installed.
 
-In this state, this role is only an extract of another automation process.
-So this might no be usable on someone else computer yet.
+This is an extract of another automation process using ansible.
+This role is tested on Fedora 27, if you need another OS feel free to create an issue, or even better to create a pull request.
 
 Role Variables
 --------------
-
-
-
-Dependencies
-------------
+Open up the defaults/main.yml.
 
 Example Playbook
 ----------------
+To install this role, create a ansible-galaxy requirement file and add the following line in it:
+
+```
+  # ansible-docker role from gitlab
+  - src: git+https://gitlab.com/jn-moal/ansible-docker.git
+```
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
     - hosts: servers
       roles:
-         - { role: jnmoal.docker }
+         - { role: ansible-docker }
 
 License
 -------
-
-MIT
+Cf. LICENSE file
 
 Author Information
 ------------------
