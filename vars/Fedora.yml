@@ -7,5 +7,3 @@ docker_ce_repository_dest: /etc/yum.repos.d/docker-ce.repo
 
 docker_machine_dest: /usr/local/bin/docker-machine
 docker_compose_dest: /usr/local/bin/docker-compose
-
-add_docker_repository_cmd: dnf config-manager --add-repo {{ docker_ce_repository_url }} 

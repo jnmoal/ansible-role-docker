@@ -15,9 +15,8 @@
   with_items: "{{ docker_prerequisites }}"
   become: yes
 
-- name: Add docker ce repository
-  shell: "{{ add_docker_repository_cmd }}"
-  become: yes
+- name: Include os specific tasks
+  include_tasks: "{{ role_path }}/tasks/{{ ansible_distribution }}.yml"
 
 - name: Install docker-ce
   package:
@@ -42,7 +41,7 @@
 - name: Add users to docker group
   user:
     name: "{{ item }}"
-    groups: "{{ docker_group_name }}" 
+    groups: "{{ docker_group_name }}"
   become: yes
   with_items: "{{ docker_group_users }}"
   when: use_docker_group
@@ -51,7 +50,7 @@
   get_url:
     url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ ansible_system }}-{{ ansible_userspace_architecture }}"
     dest: "{{ docker_compose_dest }}"
-    owner: "{{ ansible_user_id }}" 
+    owner: "{{ ansible_user_id }}"
     mode: "u=rwx,g=rwx,o=rwx"
   become: yes
   when: install_docker_compose

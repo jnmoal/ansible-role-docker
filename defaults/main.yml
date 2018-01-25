@@ -4,6 +4,7 @@ docker_package_to_remove:
   - container-selinux
   - docker-selinux
   - docker-engine
+  - docker.io
 
 docker_compose_version: 1.14.0
 docker_machine_version: v0.13.0
@@ -15,3 +16,6 @@ docker_group_name: docker
 use_docker_group: yes
 docker_group_users:
   - "{{ ansible_user_id }}"
+
+docker_machine_dest: /usr/local/bin/docker-machine
+docker_compose_dest: /usr/local/bin/docker-compose

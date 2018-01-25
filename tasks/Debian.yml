@@ -1,0 +1,13 @@
+- name: Debian | Add official GPG key
+  shell: curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg | apt-key add -
+  become: yes
+
+- name: Debian | Add repository
+  shell: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") $(lsb_release -cs) stable"
+  become: yes
+
+- name: Update apt cache
+  apt:
+    upgrade: no
+    update_cache: yes
+  become: yes
