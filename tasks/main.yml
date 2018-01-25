@@ -54,6 +54,7 @@
     owner: "{{ ansible_user_id }}" 
     mode: "u=rwx,g=rwx,o=rwx"
   become: yes
+  when: install_docker_compose
 
 - name: Install docker-machine
   get_url:
@@ -62,3 +63,4 @@
     owner: "{{ ansible_user_id }}"
     mode: "u=rwx,g=rwx,o=rwx"
   become: yes
+  when: install_docker_machine
