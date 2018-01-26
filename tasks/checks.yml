@@ -1,0 +1,31 @@
+- name: Ensure current user can run docker container
+  shell: docker run --rm hello-world
+  when: use_docker_group
+
+- name: Ensure root user can run docker container
+  shell: docker run --rm hello-world
+  when: use_docker_group == false
+  become: yes
+
+- name: Fetching docker version
+  shell: docker --version
+  register: docker_installed_version
+
+- name: Ensure user can run docker-compose
+  shell: docker-compose --version
+  when: install_docker_compose
+  become: use_docker_group == false 
+  register: docker_compose_installed_version
+
+- name: Ensure user can run docker-machine
+  shell: docker-machine --version
+  when: install_docker_machine
+  become: use_docker_group == false 
+  register: docker_machine_installed_version
+
+- name: Docker ans its tools
+  debug:
+    msg: 
+      - "{{ docker_installed_version.stdout }}"
+      - "{{ docker_machine_installed_version.stdout }}"
+      - "{{ docker_compose_installed_version.stdout }}"

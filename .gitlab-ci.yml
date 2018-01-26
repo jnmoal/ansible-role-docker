@@ -8,8 +8,8 @@ test_fedora:
   stage: test
   script:
     - vagrant up fedora
-    - vagrant ssh fedora -c "ansible-playbook /vagrant/tests/test.yml -c local"
-    - vagrant ssh fedora -c "docker run hello-world"
+    - vagrant ssh fedora -c "ansible-playbook /vagrant/tests/test.yml -c local --skip-tags checks"
+    - vagrant ssh fedora -c "ansible-playbook /vagrant/tests/test.yml -c local --tags checks"
   after_script:
     - vagrant destroy -f fedora
 
@@ -17,7 +17,7 @@ test_debian:
   stage: test
   script:
     - vagrant up debian
-    - vagrant ssh debian -c "ansible-playbook /vagrant/tests/test.yml -c local"
-    - vagrant ssh debian -c "docker run hello-world"
+    - vagrant ssh debian -c "ansible-playbook /vagrant/tests/test.yml -c local --skip-tags checks"
+    - vagrant ssh debian -c "ansible-playbook /vagrant/tests/test.yml -c local --tags checks"
   after_script:
     - vagrant destroy -f debian

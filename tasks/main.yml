@@ -63,3 +63,7 @@
     mode: "u=rwx,g=rwx,o=rwx"
   become: yes
   when: install_docker_machine
+
+- import_tasks: checks.yml
+  tags: 
+    - checks
