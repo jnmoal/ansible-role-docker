@@ -18,11 +18,19 @@
 - name: Include os specific tasks
   include_tasks: "{{ role_path }}/tasks/{{ ansible_distribution }}.yml"
 
-- name: Install docker-ce
+- name: Install specific docker package
+  package:
+    name: "{{ docker_version }}"
+    state: present
+  become: yes
+  when: docker_version is defined
+
+- name: Install latest docker package
   package:
     name: docker-ce
     state: latest
   become: yes
+  when: docker_version is undefined
 
 - name: Start docker deamon
   service:

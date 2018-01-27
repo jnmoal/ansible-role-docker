@@ -1,11 +1,6 @@
-- name: Ensure current user can run docker container
+- name: Ensure user can run docker container
   shell: docker run --rm hello-world
-  when: use_docker_group
-
-- name: Ensure root user can run docker container
-  shell: docker run --rm hello-world
-  when: use_docker_group == false
-  become: yes
+  become: use_docker_group == false
 
 - name: Fetching docker version
   shell: docker --version
