@@ -2,6 +2,9 @@
   shell: curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg | apt-key add -
   become: yes
 
+- name: Debian | Checking GPG key
+  shell: apt-key fingerprint 0EBFCD88
+
 - name: Debian | Add repository
   shell: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") $(lsb_release -cs) stable"
   become: yes

@@ -16,7 +16,7 @@
   become: yes
 
 - name: Include os specific tasks
-  include_tasks: "{{ role_path }}/tasks/{{ ansible_distribution }}.yml"
+  include_tasks: "{{ ansible_distribution }}.yml"
 
 - name: Install specific docker package
   package:
