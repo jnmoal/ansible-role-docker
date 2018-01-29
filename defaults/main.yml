@@ -1,3 +1,4 @@
+# A list of package to be removed before installing docker (cf. docker documentation)
 docker_package_to_remove:
   - docker
   - docker-common
@@ -6,16 +7,22 @@ docker_package_to_remove:
   - docker-engine
   - docker.io
 
-docker_compose_version: 1.14.0
-docker_machine_version: v0.13.0
-
+# Docker compose tool
 install_docker_compose: yes
-install_docker_machine: yes
+docker_compose_version: 1.14.0
+docker_compose_dest: /usr/local/bin/docker-compose
 
-docker_group_name: docker
+# Docker machine tool
+install_docker_machine: yes
+docker_machine_version: v0.13.0
+docker_machine_dest: /usr/local/bin/docker-machine
+
+# Define the docker group to be used, usefull on development environment so that docker
+# commands can be run without sudo.
 use_docker_group: yes
+docker_group_name: docker
 docker_group_users:
   - "{{ ansible_user_id }}"
 
-docker_machine_dest: /usr/local/bin/docker-machine
-docker_compose_dest: /usr/local/bin/docker-compose
+# Docker version and some other variables are defined in vars/{{ ansible_distribution }}.yml
+
