@@ -1,0 +1,8 @@
+docker_prerequisites:
+  - yum-utils
+  - device-mapper-persistent-data
+  - lvm2
+
+docker_ce_repository_url: https://download.docker.com/linux/centos/docker-ce.repo
+
+docker_version: docker-ce-17.12.0.ce
