@@ -2,8 +2,12 @@ stages:
   - test
 
 before_script:
-  - vagrant plugin install vagrant-vbguest
   - cd tests
+  - vagrant plugin install vagrant-vbguest
+
+after_script:
+  - cd tests
+  - vagrant destroy -f
 
 test_fedora:
   stage: test
@@ -11,8 +15,6 @@ test_fedora:
     - vagrant up fedora
     - vagrant ssh fedora -c "ansible-playbook /vagrant/tests/test.yml -c local --skip-tags checks"
     - vagrant ssh fedora -c "ansible-playbook /vagrant/tests/test.yml -c local --tags checks"
-  after_script:
-    - vagrant destroy -f fedora
 
 test_debian:
   stage: test
@@ -20,8 +22,6 @@ test_debian:
     - vagrant up debian
     - vagrant ssh debian -c "ansible-playbook /vagrant/tests/test.yml -c local --skip-tags checks"
     - vagrant ssh debian -c "ansible-playbook /vagrant/tests/test.yml -c local --tags checks"
-  after_script:
-    - vagrant destroy -f debian
 
 test_centos:
   stage: test
@@ -29,6 +29,4 @@ test_centos:
     - vagrant up centos
     - vagrant ssh centos -c "ansible-playbook /vagrant/tests/test.yml -c local --skip-tags checks"
     - vagrant ssh centos -c "ansible-playbook /vagrant/tests/test.yml -c local --tags checks"
-  after_script:
-    - vagrant destroy -f centos
 
