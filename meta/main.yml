@@ -8,7 +8,18 @@ galaxy_info:
 
   platforms:
     - name: Fedora
+      version:
+        - 27
+    - name: Debian
+      version:
+        - 9
+    - name: CentOS
+      version:
+        - 7
 
-  galaxy_tags: ['docker']
+  galaxy_tags: 
+    - docker
+    - docker-machine
+    - docker-compose
 
 dependencies: []
