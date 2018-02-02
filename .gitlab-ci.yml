@@ -1,5 +1,6 @@
 stages:
   - test
+  - deploy
 
 before_script:
   - cd tests
@@ -30,3 +31,12 @@ test_centos:
     - vagrant ssh centos -c "ansible-playbook /vagrant/tests/test.yml -c local --skip-tags checks"
     - vagrant ssh centos -c "ansible-playbook /vagrant/tests/test.yml -c local --tags checks"
 
+deploy:
+  stage: deploy
+  script:
+    - git clone --mirror git@gitlab.com:jnmoal-ansible/docker.git mirror
+    - cd mirror
+    - git remote set-url --push origin git@github.com:jnmoal/ansible-role-docker.git
+    - git push --mirror
+  only:
+    - master
