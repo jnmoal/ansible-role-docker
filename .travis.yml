@@ -1,0 +1,18 @@
+language: python
+python: "2.7"
+
+sudo: false
+
+addons:
+  apt:
+    packages:
+      - python-pip
+
+install:
+  - pip install ansible
+
+script:
+  - ansible --version
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/

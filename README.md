@@ -17,18 +17,17 @@ Open up the defaults/main.yml.
 
 Example Playbook
 ----------------
-To install this role, add the following line to your ansible-galaxy requirement file:
+To install this role, run the following command:
 
 ```
-  # Docker role from gitlab
-  - src: git+https://gitlab.com/jnmoal-ansible/docker.git
+ansible-galaxy install --roles-path . jnmoal.docker
 ```
 
 Then, in your playbook:
 
     - hosts: servers
       roles:
-         - { role: docker }
+         - { role: jnmoal.docker }
 
 License
 -------
