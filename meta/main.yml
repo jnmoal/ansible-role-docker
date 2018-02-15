@@ -1,6 +1,6 @@
 galaxy_info:
   author: jnmoal
-  description: Docker
+  description: Docker and its tools for Linux.
 
   license: MIT
 
@@ -8,13 +8,13 @@ galaxy_info:
 
   platforms:
     - name: Fedora
-      version:
+      versions:
         - 27
     - name: Debian
-      version:
-        - 9
+      versions:
+        - stretch
     - name: CentOS
-      version:
+      versions:
         - 7
 
   galaxy_tags: 

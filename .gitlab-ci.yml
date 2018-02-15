@@ -39,4 +39,4 @@ deploy:
     - git remote set-url --push origin git@github.com:jnmoal/ansible-role-docker.git
     - git push --mirror
   only:
-    - master
+    - tags
